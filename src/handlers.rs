@@ -1,15 +1,18 @@
 use askama::Template;
-use maud::html;
 use axum::{
     http::StatusCode,
     response::{Html, IntoResponse},
 };
+use maud::html;
 
 #[derive(Template)]
-#[template(path = "index.html")]
-
+#[template(path = "hello.html")]
 struct HelloTmpl<'a> {
     name: &'a str,
+}
+
+pub async fn index() -> impl IntoResponse {
+    (StatusCode::OK, Html(include_str!("../templates/base.html")))
 }
 
 pub async fn maud_handler() -> impl IntoResponse {
